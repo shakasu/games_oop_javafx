@@ -70,28 +70,17 @@ public class Logic {
 
     public boolean isWin() {
         int[][] table = this.convert();
-        boolean result = false;
-        int[] one = new int[table.length];
-        Arrays.fill(one, 1);
-        for (int row = 0; row < table.length; row++) {
-            if (Arrays.equals(table[row], one)) {
-                result = true;
-                break;
-            }
-            int rowS = 0;
-            for (int cell = 0; cell < table.length; cell++) {
-                if (table[cell][row] == 1) {
-                    rowS++;
-                }
-                result = rowS == table.length;
-                if (result) {
-                    return result;
+        int inCount = 0;
+        int outCount = 0;
+        for (int out = 0; ((out < table.length) && (inCount + outCount != table.length + 1)); out++) {
+            if (table[out][out] == 1) {
+                for (int inner = 0; inner < table.length; inner++) {
+                    inCount = inCount + table[out][inner];
+                    outCount = outCount + table[inner][out];
                 }
             }
-
         }
-
-        return result;
+        return ((inCount == table.length) || (outCount == table.length));
     }
 
     public int[][] convert() {
