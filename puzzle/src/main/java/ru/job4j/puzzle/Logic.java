@@ -72,7 +72,7 @@ public class Logic {
         int[][] table = this.convert();
         int inCount = 0;
         int outCount = 0;
-        for (int out = 0; out < table.length; out++) {
+        for (int out = 0; ((out < table.length) && (inCount + outCount != table.length + 1)); out++) {
             if (table[out][out] == 1) {
                 for (int inner = 0; inner < table.length; inner++) {
                     inCount = inCount + table[out][inner];
