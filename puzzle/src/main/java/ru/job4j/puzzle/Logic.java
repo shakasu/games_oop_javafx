@@ -71,7 +71,8 @@ public class Logic {
     public boolean isWin() {
         int[][] table = this.convert();
         boolean result = false;
-        int[] one = new int[]{1, 1, 1, 1, 1};
+        int[] one = new int[table.length];
+        Arrays.fill(one, 1);
         for (int row = 0; row < table.length; row++) {
             if (Arrays.equals(table[row], one)) {
                 result = true;
