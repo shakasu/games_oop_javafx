@@ -26,21 +26,19 @@ public class Logic3T {
     }
 
     public boolean isWinnerX() {
-        return List.of(0, 1, 2)
-                .stream()
-                .anyMatch(i -> (this.fillBy(Figure3T::hasMarkX, 0, i, 1, 0) ||
-                        this.fillBy(Figure3T::hasMarkX, i, 0, 0, 1))) ||
-                this.fillBy(Figure3T::hasMarkX, 0,0, 1, 1) ||
-                this.fillBy(Figure3T::hasMarkX, this.table.length - 1 , 0, -1, 1);
+        return isWin(Figure3T::hasMarkX);
+    }
+    public boolean isWinnerO() {
+        return isWin(Figure3T::hasMarkO);
     }
 
-    public boolean isWinnerO() {
+    public boolean isWin(Predicate<Figure3T> sign) {
         return List.of(0, 1, 2)
                 .stream()
-                .anyMatch(i -> (this.fillBy(Figure3T::hasMarkO, 0, i, 1, 0) ||
-                        this.fillBy(Figure3T::hasMarkO, i, 0, 0, 1))) ||
-                this.fillBy(Figure3T::hasMarkO, 0,0, 1, 1) ||
-                this.fillBy(Figure3T::hasMarkO, this.table.length - 1, 0, -1, 1);
+                .anyMatch(i -> (this.fillBy(sign, 0, i, 1, 0) ||
+                        this.fillBy(sign, i, 0, 0, 1))) ||
+                this.fillBy(sign, 0,0, 1, 1) ||
+                this.fillBy(sign, this.table.length - 1 , 0, -1, 1);
     }
 
     public boolean hasGap() {
